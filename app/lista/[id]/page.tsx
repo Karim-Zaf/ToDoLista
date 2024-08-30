@@ -116,7 +116,11 @@ export default function page() {
                                         fetch(`http://localhost:3000/api/changeDescriptionTask/${params.id}/${task.id_tache}?description=${event.target.value}`,{method: 'PATCH'})
                                     }}></Input></TableCell>
                                     <TableCell>
+<<<<<<< HEAD
                                         <Button className='h-16 w-full rounded-xl bg-slate-600 hover:bg-slate-500 text-white flex flex-col items-center justify-center m-auto text-xl ' onClick={()=>{
+=======
+                                        <Button className='h-16 w-full rounded-xl bg-green-600 hover:bg-green-500 text-white flex flex-col items-center justify-center m-auto text-xl ' onClick={()=>{
+>>>>>>> d3a8eac (Prepare for deployment)
                                         setModifyTask(-1)
                                         window.location.reload();
                                     }}><FaSave/></Button>
