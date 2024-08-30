@@ -7,7 +7,7 @@ I've built a web application using Next.js and Tailwind CSS that allows users to
 - Next.js
 - Tailwind CSS
 - React
-- JavaScript
+- TypeScript
 
 ## Getting Started
 
