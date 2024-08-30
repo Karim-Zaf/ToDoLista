@@ -8,6 +8,10 @@ I've built a web application using Next.js and Tailwind CSS that allows users to
 - Tailwind CSS
 - React
 - TypeScript
+- Postgres SQL
+- Prisma
+- Rest API
+- ShadcnUI
 
 ## Getting Started
 
