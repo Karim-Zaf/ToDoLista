@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Listes {
+  id_liste  Int      @id @default(autoincrement())
+  nom_liste String   @db.VarChar(255)
+  Taches    Taches[]
+}
+
+model Taches {
+  id_tache     Int     @id @default(autoincrement())
+  id_liste     Int
+  description  String  @db.VarChar(255)
+  etat         Boolean @default(false)
+  Listes       Listes  @relation(fields: [id_liste], references: [id_liste])
+
+  @@index([id_liste], name: "fk_listes")
+}

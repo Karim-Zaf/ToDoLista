@@ -1,0 +1,12 @@
+CREATE OR REPLACE TABLE listes (
+    id_liste NUMBER PRIMARY KEY,
+    nom_liste VARCHAR2(255)
+);
+
+CREATE OR REPLACE TABLE taches (
+    id_tache NUMBER PRIMARY KEY,
+    id_liste NUMBER,
+    description VARCHAR2(255),
+    etat BOOLEAN,
+    CONSTRAINT fk_listes FOREIGN KEY (id_liste) REFERENCES listes(id_liste)
+);
