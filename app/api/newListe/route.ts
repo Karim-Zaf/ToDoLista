@@ -9,7 +9,6 @@ export async function GET(request: Request,{params}: any) {
         data: {
             nom_liste : 'New List'
         }
-    });
-    
+    });    
     return NextResponse.json(ret);
 }

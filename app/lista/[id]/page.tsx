@@ -71,8 +71,9 @@ export default function page() {
                     <Button className='h-16 w-32 md:absolute right-6 text-xl' onClick={()=>{
                         fetch(`http://localhost:3000/api/changeTitle/${params.id}/${newTitle}`,{method: 'PATCH'})
                         setChangeTitle(false)
+
+                        setTitle(newTitle)
                         setNewTitle('')
-                        window.location.reload();
                     }}><FaSave/></Button>
                     </form>
                 }
@@ -89,7 +90,10 @@ export default function page() {
                                     var response = await fetch(`http://localhost:3000/api/changeEtatTask/${params.id}/${task.id_tache}/${isChecked ? "false" : "true"}`, {
                                         method: 'PATCH'
                                     });
-                                    window.location.reload();
+
+                                    const resp = await fetch('http://localhost:3000/api/lista/' + params.id);
+                                    const data = await resp.json();
+                                    setTaskowet(data);
                                 }}></Checkbox></TableCell>
 
                                 {
@@ -117,9 +121,14 @@ export default function page() {
                                     }}></Input></TableCell>
                                     <TableCell>
 
-                                        <Button className='h-16 w-full rounded-xl bg-slate-600 hover:bg-slate-500 text-white flex flex-col items-center justify-center m-auto text-xl ' onClick={()=>{
+                                        <Button className='h-16 w-full rounded-xl bg-slate-600 hover:bg-slate-500 text-white flex flex-col items-center justify-center m-auto text-xl ' onClick={async()=>{
                                         setModifyTask(-1)
-                                        window.location.reload();
+                                        
+                                    const resp = await fetch('http://localhost:3000/api/lista/' + params.id);
+                                    const data = await resp.json();
+                                    setTaskowet(data);
+                                        // window.location.reload();
+                                        
                                     }}><FaSave/></Button>
                                     </TableCell>
 
@@ -131,10 +140,14 @@ export default function page() {
 
 
                                 <TableCell className="w-36"><Button className='h-16 w-full rounded-xl bg-orange-600 hover:bg-orange-500 text-white flex flex-col items-center justify-center m-auto text-xl ' onClick={async()=>{
-                                    const response = await fetch('http://localhost:3000/api/deletetask/' + params.id + '/' + task.id_tache,{
+                                    var response = await fetch('http://localhost:3000/api/deletetask/' + params.id + '/' + task.id_tache,{
                                         method: 'DELETE'
                                     });
-                                    window.location.reload();
+                                    response = await response.json();
+
+                                    const resp = await fetch('http://localhost:3000/api/lista/' + params.id);
+                                    const data = await resp.json();
+                                    setTaskowet(data);
                                     
                                 }}><FaTrash/> </Button></TableCell>
                                 
@@ -144,20 +157,23 @@ export default function page() {
                 }
 
             </TableBody></Table>
-                <form className="flex w-full h-full p-5 gap-5"><Input className="h-20 w-[85%] m-0 text-3xl" placeholder="add a task ..." onChange={
+                <div className="flex w-full h-full p-5 gap-5"><Input className="h-20 w-[85%] m-0 text-3xl" placeholder="add a task ..." onChange={
                                 (value)=>{
                                     setCurrentTask(value.target.value)     
                                 }
-                            }></Input>
+                            } value= {currentTask}></Input>
                             <Button className=' bg-green-600 text-green-100 flex flex-col items-center justify-center m-auto hover:bg-green-500  h-20 right-0 w-[140px] rounded-full text-2xl' onClick={async()=>{
                                 
                                 const response = await fetch('http://localhost:3000/api/newtask/' + params.id + '/' + currentTask,{
                                     method: 'POST'
                                 });
                                 setCurrentTask('')
-                                window.location.reload();
+                                
+                                const resp = await fetch('http://localhost:3000/api/lista/' + params.id);
+                                const data = await resp.json();
+                                setTaskowet(data);
                             }}><FaCheck/></Button>
-                        </form>
+                        </div>
                     
             </CardContent>
 

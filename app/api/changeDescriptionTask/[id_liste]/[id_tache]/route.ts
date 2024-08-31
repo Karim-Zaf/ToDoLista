@@ -14,7 +14,7 @@ export async function PATCH(request: Request, {params}: any) {
         return NextResponse.error();
     }
 
-    const lista = await prisma.taches.updateMany({
+    var lista = await prisma.taches.updateMany({
         where: {
             id_liste: parseInt(params.id_liste, 10),
             id_tache : parseInt(params.id_tache, 10)
@@ -22,5 +22,6 @@ export async function PATCH(request: Request, {params}: any) {
             description : description
         }
     });
+
     return NextResponse.json(lista);
 }

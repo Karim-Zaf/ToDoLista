@@ -12,7 +12,8 @@ import { useRouter } from 'next/router';
 
 export default function Home() {
   let [listes, setListes] = useState([{}])
-
+  const [seed, setSeed] = useState(1);
+  
   useEffect(()=>{
     var fetchListes = async () => {
       var curr : any  = await fetch('http://localhost:3000/api/getAllListes')
@@ -22,6 +23,8 @@ export default function Home() {
 
     fetchListes()
   },[])
+  useEffect(()=>{
+  },[listes])
 
   return (
     <>
@@ -44,10 +47,8 @@ export default function Home() {
 
           <CardFooter className='' >
           <Button className='w-full h-24 m-0 text-2xl font-bold border-2 rounded-md gap-5' onClick={async()=>{
-            
-              const lista : any = await fetch('http://localhost:3000/api/newListe')
-              alert ("New Lista added !")
-              window.location.reload();
+              const lista : any = await (await fetch('http://localhost:3000/api/newListe')).json()
+              window.location.href = '/lista/' + lista.id_liste
           }}> <FaPlus/> Add a list </Button>
         </CardFooter> 
       </Card>
